@@ -1,0 +1,1 @@
+# Operaciones básicas con strings en python 3.10.7
