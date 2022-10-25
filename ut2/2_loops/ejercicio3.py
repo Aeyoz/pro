@@ -1,6 +1,6 @@
-n = 1
-number = 0
-for i in range(10):
-    number = str(n) * i
-    number = int(number)
-    print(number)
+number = "1"
+times = 9
+
+for rep in range(1, times + 1):
+    operation = number * rep
+    print(f"{operation} * {operation} = {int(operation) * int(operation)}")
