@@ -4,9 +4,10 @@ grid = ""
 for row in range(size):
     for column in range(size):
         if row < column:
-            grid += "D "
+            grid = "D"
         elif row > column:
-            grid += "U "
+            grid = "U"
         else:
-            grid += "X "
-
+            grid = "X" 
+        print(grid, end = " ")
+    print()

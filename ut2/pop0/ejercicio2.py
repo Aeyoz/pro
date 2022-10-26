@@ -5,11 +5,10 @@ import pycheck
 
 def run(word: str) -> float:
     additions = 0
-    counter = 0
     for i in word:
+        lenght = len(word)
         additions += ord(i)
-        counter += 1
-    char_avg = additions / counter
+    char_avg = additions / lenght
     return char_avg
 
 
