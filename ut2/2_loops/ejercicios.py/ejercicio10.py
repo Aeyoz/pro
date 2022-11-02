@@ -5,6 +5,7 @@ for tile_1_number in range(TILES + 1):
         line += f"[{tile_1_number} | {tile_2_number}] "
     print(line)
 
+
 # TILES = 6
 # 
 # for tile_1_number in range(TILES + 1):

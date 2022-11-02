@@ -4,7 +4,7 @@ line = 1
 codes = ""
 
 for code in range(min_codes, max_codes + 1):
-    codes += f"{code} = {chr(code)} | "
+    codes += f"{code:03d} = {chr(code)} | "
     if line % 5 == 0:
         print(codes)
         codes = ""
