@@ -1,9 +1,6 @@
 trial_numbers = 9
 lowest_number = 0
-x_solution = 0
-
-for number in range(-trial_numbers,trial_numbers + 1):
-    x = number
+for x in range(-trial_numbers,trial_numbers + 1):
     formula = x ** 2 - 6 * x + 3
     if formula < lowest_number:
         lowest_number = formula

@@ -1,6 +1,13 @@
 TILES = 6
+for tile_1_number in range(TILES + 1):
+    line = ""
+    for tile_2_number in range(tile_1_number, TILES + 1):
+        line += f"[{tile_1_number} | {tile_2_number}] "
+    print(line)
 
-for tile_1number in range(TILES + 1):
-    for tile_2number in range(tile_1number, TILES + 1):
-        print(f"[{tile_1number} | {tile_2number}]", end= " ")
-    print()
+# TILES = 6
+# 
+# for tile_1_number in range(TILES + 1):
+#     for tile_2_number in range(tile_1_number, TILES + 1):
+#         print(f"[{tile_1_number} | {tile_2_number}]", end= " ")
+#     print()

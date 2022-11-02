@@ -1,13 +1,8 @@
-from tkinter import N
-
-
 n = 12
-m = 150
-max_num = max(12, 44) // 2
-mcd = 0
+m = 44
+min_num = n if n < m else m 
 
-for num in range(1, max_num + 1):
+for num in range(min_num, 0, -1):
     if n % num == 0 and m % num == 0:
-        mcd = num
-
-print(mcd)
+        break
+print(num)
