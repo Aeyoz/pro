@@ -1,8 +1,7 @@
 tries = 0
 num = 13
 
-while True:
-    guess = int(input("Introduce a number between 0 and 100: "))
+while guess:= int(input("Introduce a number between 0 and 100: ")) != num:
     tries += 1
     if guess > num: 
         print("The number introduced was too big")
