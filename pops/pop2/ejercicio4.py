@@ -10,8 +10,9 @@ CHECK_CASES = [
 
 
 def run(mother_age: int, daughter_age: int) -> tuple:
-    target_mother_age, target_daughter_age = mother_age, daughter_age
-    while (target_mother_age / target_daughter_age) != 2:
+    target_mother_age = mother_age - daughter_age
+    target_daughter_age = 0
+    while target_mother_age != target_daughter_age * 2:
         target_mother_age += 1
         target_daughter_age += 1
     return target_mother_age, target_daughter_age
