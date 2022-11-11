@@ -7,13 +7,16 @@ matrix_C = []
 #         result = matrix_A[rows][j]
 #         print(matrix_A[rows][j])
 
+pos1 = 0
+pos2 = 0
 for _A in matrix_A:
-    pos1 = 0
-    pos2 = 0
     for i in range(len(_A)):
-        print(_A[i])
-for _B in matrix_B:
-
+        element1 = _A[i]
+        for _B in matrix_B:
+            for j in range(len(_B)):
+                element2 = _B[j]
+                pos1 = element1 * element2
+                print(pos1)
 # for _A, _B in zip(matrix_A, matrix_B):
 #     pos1 = 0
 #     pos2 = 0
