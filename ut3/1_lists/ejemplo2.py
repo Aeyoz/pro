@@ -5,6 +5,7 @@ for char in word:
     if char in letters:
         print("Not a isogram")
         break
-    letters.append(char)
+    if char.isalpha():
+        letters.append(char)
 else:
     print("Is a isogram")
