@@ -1,9 +1,9 @@
-unsorted_list = [0, 10, [20, 30], 40, 50, [60, 70, 80], [90, 100, 110, 120]]
-sorted_list = []
-for i in unsorted_list:
-    if type(i) == list:
-        for j in i:
-            sorted_list.append(j)
+unleveled_list = [0, 10, [20, 30], 40, 50, [60, 70, 80], [90, 100, 110, 120]]
+leveled_list = []
+for element in unleveled_list:
+    if type(element) == list:
+        for sub_element in element:
+            leveled_list.append(sub_element)
     else:
-        sorted_list.append(i)
-print(sorted_list)   
+        leveled_list.append(element)
+print(leveled_list)   
