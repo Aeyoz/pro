@@ -9,7 +9,14 @@ NOTAS:
 
 
 def run(values: list) -> int:
-    # TU CÓDIGO AQUÍ
+    min_value = min(values)
+    max_value = max(values)
+    for i in values:
+        if i == min_value:
+            values.pop(values.index(i))
+        elif i == max_value:
+            values.pop(values.index(i))
+    tsum = sum(values)
     return tsum
 
 

@@ -4,7 +4,9 @@ Dado un número entero no negativo "n", obtenga una lista con los números desde
 
 
 def run(n: int) -> list:
-    # TU CÓDIGO AQUÍ
+    rev_nums = []
+    for i in range(n, 0, -1):
+        rev_nums.append(i)
     return rev_nums
 
 

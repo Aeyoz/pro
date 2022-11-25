@@ -8,7 +8,10 @@ Prohibido utilizar:
 
 
 def run(values: list) -> int:
-    # TU CÓDIGO AQUÍ
+    min_value = values[0]
+    for i in values[1:]:
+        if i < min_value:
+            min_value = i
     return min_value
 
 

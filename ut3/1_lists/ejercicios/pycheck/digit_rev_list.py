@@ -14,3 +14,4 @@ def run(number: int) -> list:
 
 if __name__ == '__main__':
     run(35231)
+    

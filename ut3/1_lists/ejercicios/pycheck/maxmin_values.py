@@ -5,7 +5,13 @@ misma. No se pueden utilizar las funciones "built-in" max() y min(), y tampoco s
 
 
 def run(values: list) -> tuple:
-    # TU CÓDIGO AQUÍ
+    max_value = values[0]
+    min_value = values[0]
+    for value in values[1:]:
+        if value > max_value:
+            max_value = value
+        elif value < min_value:
+            min_value = value
     return max_value, min_value
 
 

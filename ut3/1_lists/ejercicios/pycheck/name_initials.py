@@ -5,8 +5,8 @@ persona pasadas a mayúsculas y con punto al final.
 
 
 def run(fullname: str) -> str:
-    fullname = fullname.upper().split(",")
-    name = fullname[1].strip()[0]
+    fullname = fullname.upper().split(", ")
+    name = fullname[1][0]
     surname = fullname[0]
     surname = surname.split()
     s_surname = ""

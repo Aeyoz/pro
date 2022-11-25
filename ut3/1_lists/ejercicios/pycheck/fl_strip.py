@@ -6,7 +6,11 @@ por espacios.
 
 
 def run(numbers: str) -> str:
-    # TU CÓDIGO AQUÍ
+    numbers = numbers.replace(",", " ")
+    stripped = numbers[1:-1].strip()
+    num_list = []
+    num_list.extend(stripped)
+    strip_numbers = "".join(num_list)
     return strip_numbers
 
 

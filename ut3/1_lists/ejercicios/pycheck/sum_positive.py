@@ -4,7 +4,7 @@ Dada una lista de números, calcule la suma de todos los valores positivos.
 
 
 def run(numbers: list) -> int:
-    # TU CÓDIGO AQUÍ
+    sum_positive = sum([i for i in numbers if i >= 0])
     return sum_positive
 
 
