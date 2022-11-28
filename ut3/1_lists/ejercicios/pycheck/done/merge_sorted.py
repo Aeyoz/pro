@@ -13,16 +13,20 @@ de salida.
 
 def run(values1: list, values2: list) -> list:
     merged = []
-    for i,j in zip(values1,values1[1:]):
+    merged.extend(values1)
+    merged.extend(values2)
+    for i, j in zip(merged, merged[1:]):
         if i == j:
-            values1.pop(values1.index(j))
-    for x,z in zip(values2,values2[1:]):
-        if x == z:
-            values2.pop(values2.index(z))
-    for l,k in zip(values1,values2):
-        if l != k:
-            merged.append(l)
-            merged.append(k)
+            merged.pop(merged.index(j))
+        elif i == max(merged):
+            merged.insert(10, i)
+        elif j == max(merged) and j not in merged:
+            merged.insert(10, j)
+    for i,j in zip(merged, merged[1:]):
+        if merged.count(i) > 1:
+            merged.pop(merged.index(i))
+        if merged.count(j) > 1:
+            merged.pop(merged.index(j))
     return merged
 
 

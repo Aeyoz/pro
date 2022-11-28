@@ -9,10 +9,17 @@ Trabaje con formato de 24 horas.
 def run(time: str, offset: int) -> str:
     time_hours = int(time.split(":")[0])
     time_minutes = int(time.split(":")[1])
-    offset_hours = offset // 60
-    offset_minutes = offset - (offset_hours * 60)
-    time_hours += offset_hours
-    final_time = f"{time_hours}:{time_minutes}"
+    hours_offset = offset // 60
+    minutes_offset = offset - hours_offset * 60
+    final_minutes = time_minutes + minutes_offset
+    added_hour = 0
+    if final_minutes > 60:
+        added_hour = 1
+        final_minutes -= 60
+    final_hour = time_hours + hours_offset + added_hour
+    if final_hour > 24:
+        final_hour -= 24
+    final_time = f"{final_hour}:{final_minutes}"
     return final_time
 
 

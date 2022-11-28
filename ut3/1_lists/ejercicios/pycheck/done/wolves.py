@@ -13,9 +13,17 @@ Las posiciones hay que calcularlas empezando por el final de la lista con índic
 
 
 def run(farm: list) -> str:
-    # TU CÓDIGO AQUÍ
+    wolf = farm.index("lobo")
+    animals = 0
+    msg = ""
+    for animal1,animal2 in zip(farm, farm[1:]):
+        if wolf == len(farm) - 1:
+            msg = "No te quiero ver más por aquí, lobo"
+        elif animal1 or animal2 != "oveja":
+            warn = farm.index("lobo")
+            animals = farm[warn:].count("oveja")
+            msg = f"Cuidado oveja {animals}, el lobo te va a comer"
     return msg
-
 
 if __name__ == '__main__':
     run(['oveja', 'oveja', 'lobo', 'oveja'])
