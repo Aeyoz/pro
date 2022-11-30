@@ -4,7 +4,7 @@
 
 
 def run(hex_codes: list) -> str:
-    hex_codes = [chr(int(i,16)) for i in hex_codes]
+    hex_codes = [chr(int(i, 16)) for i in hex_codes]
     text = "".join(hex_codes)
     return text
 

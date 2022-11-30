@@ -5,10 +5,9 @@
 
 def run(values: list, target: int) -> int:
     max_diff = 0
-    if len(values) > 0:
-        for value in values:
-            if abs(target - value) > max_diff:
-                max_diff = abs(target - value) 
+    for value in values:
+        if abs(target - value) > max_diff:
+            max_diff = abs(target - value) 
     return max_diff
 
 
