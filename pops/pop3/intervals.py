@@ -5,7 +5,7 @@
 
 def run(interval: str) -> list:
     interval = interval.split(",")
-    lower = int(interval[0][1])
+    lower = int(interval[0][1:])
     upper = int(interval[1][:-1])
     if interval[0][0] == "(":
         lower += 1
