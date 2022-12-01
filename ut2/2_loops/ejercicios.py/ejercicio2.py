@@ -1,4 +1,3 @@
-name = ""
 while not (name := input("Introduce your name: ")).istitle():
     print("Your name is in the wrong format")
 print("Your name is in the correct format")
