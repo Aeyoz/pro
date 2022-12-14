@@ -11,3 +11,5 @@ def run(hex_codes: list) -> str:
 
 if __name__ == '__main__':
     run(['1f49a', '2728', '1f389', '1f3c6'])
+
+
