@@ -17,6 +17,6 @@ for point in points:
             games_player2 += 1
             player1_score = player2_score = 0
     if tie_break and new_game:
-        ""
+        MIN_POINTS = 7
 
 print(games_player1, games_player2)
