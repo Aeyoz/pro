@@ -4,10 +4,7 @@
 
 
 def run(stock: dict, merch: str, amount: int) -> bool:
-    if stock[merch] < amount:
-        available = False
-    else:
-        available = True
+    available = False if stock[merch] < amount else True
     return available
 
 
