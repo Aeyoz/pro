@@ -4,7 +4,6 @@
 
 
 def run(d1: dict, d2: dict) -> dict:
-    # TU CÓDIGO AQUÍ
     merged = d1.copy()
     for k, v in d2.items():
         merged[k] = v

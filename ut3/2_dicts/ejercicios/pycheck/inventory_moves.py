@@ -8,11 +8,17 @@ def run(imoves: str) -> dict:
     moves = imoves.split(",")
     for element in moves:
         position = element[0]
-        cuantity = int(element[1:])
-        if position not in inventory:
-            inventory[position] = cuantity
-        else:
-            inventory[position] += cuantity
+        cuantity = int(element[1:])        
+        inventory[position] = inventory.get(position, 0) + cuantity
+#    inventory = {}
+#    moves = imoves.split(",")
+#    for element in moves:
+#        position = element[0]
+#        cuantity = int(element[1:])        
+#        if position in inventory:
+#            inventory[position] += cuantity
+#        else:
+#            inventory[position] = cuantity
     return inventory
 
 
