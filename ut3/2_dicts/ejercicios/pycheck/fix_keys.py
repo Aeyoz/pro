@@ -4,11 +4,7 @@
 
 
 def run(items: dict) -> dict:
-    fitems = {}
-    for item, value in items.items():
-        replace_times = item.count(" ")
-        replaced_item = item.replace(" " * replace_times, "")
-        fitems[replaced_item] = value 
+    fitems = {item.replace(" ", ""):value for item, value in items.items()}
     return fitems
 
 
