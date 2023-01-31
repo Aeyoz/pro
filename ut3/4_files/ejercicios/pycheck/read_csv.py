@@ -15,12 +15,11 @@ def run(datafile: Path) -> list:
             unprocessed_stats = pkstat.strip().split(",")
             stats = []
             for stat in unprocessed_stats:
-                _False = stat == "False" 
                 if stat.isdigit():
                     stats.append(int(stat))
-                elif _False:
+                elif stat == "False":
                     stats.append(False)
-                elif not _False:
+                elif stat == "True":
                     stats.append(True)
                 else:
                     stats.append(stat)

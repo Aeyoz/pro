@@ -1,5 +1,14 @@
-data = []
-cats = ["Name", "Type_1", "Type_2", "Total", "HP", "Attack", "Defense", "Sp_Atk", "Sp_Def", "Speed", "Generation", "Legendary"]
-pokemon = ['Bulbasaur', 'Grass', 'Poison', '318', '45', '49', '49', '65', '65', '45', '1', 'False']
-data.append(dict())
-print(len(cats), len(pokemon))
+tilda = "áéíóú"
+non_tilda = "aeiou"
+
+text = "Hasta 17 millones de españoles reconocen ser usuarios habituales de patinetes eléctricos \
+        o bicicletas eléctricas, y un 60% de la población ve su uso probable a corto plazo. Estos\
+        datos, recogidos en un estudio elaborado por la Fundación Línea Directa en colaboración con\
+        la Fundación Española para la Seguridad Vial (FESVIAL), son la confirmación de lo que se ve \
+        a diario en las calles de nuestras ciudades: cada vez más personas eligen los conocidos como \
+        VMPs (vehículos de movilidad personal) para sus desplazamientos urbanos, motivados sobre todo \
+        por el alza de los precios del combustible, el aumento del precio de los coches y los elevados \
+        costes de su posterior mantenimiento."
+
+new_text = text.replace(tilda, non_tilda)
+print(new_text)

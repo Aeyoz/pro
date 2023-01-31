@@ -17,7 +17,7 @@ def run(text_path: Path) -> bool:
         for line in output_lines:
             output_file.write(line)
 
-    return filecmp.cmp(md_path, r'data\txt2md\.expected', shallow=False)
+    return filecmp.cmp(md_path, 'data/txt2md/.expected', shallow=False)
 
 
 if __name__ == '__main__':
