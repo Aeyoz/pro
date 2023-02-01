@@ -10,14 +10,10 @@ def run(data_path: Path, target_word: str) -> list:
         row = 0
         for line in file:
             row += 1
-            if line.count(target_word.lower()) >= 1 < 2:
+            if line.count(target_word.lower().strip()) >= 1 < 2:
                 column = len(line[:line.index(target_word):]) + 1
                 matches.append((row, column))
-            elif line.count(target_word) >= 2:
-                for word in line:
-                    if word == target_word.strip().lower():
-                        column = len(line[:line.index(target_word):]) + 1
-                        matches.append((row, column))
+            
     return matches
 
 
