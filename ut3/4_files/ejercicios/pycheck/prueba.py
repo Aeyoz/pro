@@ -10,5 +10,7 @@ text = "Hasta 17 millones de españoles reconocen ser usuarios habituales de pat
         por el alza de los precios del combustible, el aumento del precio de los coches y los elevados \
         costes de su posterior mantenimiento."
 
-new_text = text.replace(tilda, non_tilda)
-print(new_text)
+for vowel1, vowel2 in zip(tilda, non_tilda):
+        text = text.replace(vowel1, vowel2)
+
+print(text)
