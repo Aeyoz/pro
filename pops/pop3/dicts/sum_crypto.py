@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def run(crypto_path: Path) -> float:
-    uncryp_table = {"sd":"-", "vo":".", "ax":"0",
+    uncrypt_table = {"sd":"-", "vo":".", "ax":"0",
                     "gh":"1", "hj":"2", "uv":"3",
                     "ws":"4", "pk":"5", "et":"6",
                     "mc":"7", "rh":"8", "wb":"9"}
@@ -15,8 +15,8 @@ def run(crypto_path: Path) -> float:
             uncrypt_code = ""
             for i in range(len(line)):
                 code = line[i:i + 2]
-                if code in uncryp_table:
-                    uncrypt_code += uncryp_table[code]
+                if code in uncrypt_table:
+                    uncrypt_code += uncrypt_table[code]
             sum_cr += float(uncrypt_code)
     return sum_cr
 
