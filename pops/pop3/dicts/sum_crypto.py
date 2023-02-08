@@ -10,7 +10,6 @@ def run(crypto_path: Path) -> float:
                     "ws":"4", "pk":"5", "et":"6",
                     "mc":"7", "rh":"8", "wb":"9"}
     sum_cr = 0
-    di = {}
     with open(crypto_path) as f:
         for line in f:
             uncrypt_code = ""
