@@ -12,12 +12,12 @@ def run(crypto_path: Path) -> float:
     sum_cr = 0
     with open(crypto_path) as f:
         for line in f:
-            uncrypt_code = ""
+            uncrypt_code = []
             for i in range(len(line)):
                 code = line[i:i + 2]
                 if code in uncrypt_table:
-                    uncrypt_code += uncrypt_table[code]
-            sum_cr += float(uncrypt_code)
+                    uncrypt_code.append(uncrypt_table[code])
+            sum_cr += float("".join(uncrypt_code))
     return sum_cr
 
 
