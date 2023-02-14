@@ -14,10 +14,11 @@ def run(input_path: Path) -> bool:
             set1 = set(row1.split())
             for row2 in document:
                 set2 = set(row2.split())
-                coincidences.append(f"{len(set1.intersection(set2))}\n")
+                coincidences.append(len(set1.intersection(set2)))
 
     with open(output_path, "w") as f:
-        f.writelines(coincidences)
+        for coincidence in coincidences:
+            f.write(f"{coincidence}\n")
 
     return filecmp.cmp(output_path, 'data/common_words/.expected', shallow=False)
 
