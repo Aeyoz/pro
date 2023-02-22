@@ -3,7 +3,7 @@ from consolemenu import *
 from consolemenu.items import *
 
 # Create the menu
-menu = ConsoleMenu("Title", "Subtitle")
+menu = ConsoleMenu("Notepad", "O eso creo")
 
 # Create some items
 
