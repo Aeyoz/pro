@@ -4,7 +4,7 @@
 
 
 def run(unsorted_items: dict) -> list:
-    sorted_items = []
+    sorted_items = sorted(unsorted_items.items(), key=lambda x: x[1])
 
     return sorted_items
 
