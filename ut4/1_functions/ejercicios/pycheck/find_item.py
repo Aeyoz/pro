@@ -1,13 +1,13 @@
 def find_item(items: tuple, value: int = 2) -> int:
-    """ Find how many times a value is found in a tuple of items.
-    :param items: tuple to be iterated
+    ''' Find how many times a value is found in a tuple of items.
+    :param items: A bunch of numbers to look for.
     :type items: tuple
     :param value: Value to be found
     :type value: int
 
     :return: repeated
-    :rtype: int
-    """
+    :rtype: int'''
+
     repeated = len([item for item in items if item == value])
     return repeated
 
