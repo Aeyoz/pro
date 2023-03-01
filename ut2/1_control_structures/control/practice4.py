@@ -52,4 +52,4 @@ match operator:
     case "!" if operator == "!" and result != "":
         print(f"\nThe result of your factorial is {result}")
     case _:
-       print(ERROR)
+        print(ERROR)

@@ -2,21 +2,20 @@
 # FRECUENCIA DE ELEMENTOS CONSECUTIVOS
 # ************************************
 
-def cfreq(values, as_string=False):
+
+def cfreq(items, /, as_string=False):
     freqs = []
-    counter = 0
-
-    if len(values) > 0:
-        prev_v = values[0]
-        for value in values[1:]:
-            counter += 1
-            if value != prev_v:
-                freqs.append((prev_v, counter))
-                prev_v = value
-                counter = 0
-        counter += 1
-        freqs.append((prev_v, counter))
-
+    counter = 1
+    if len(items) > 0:
+        prev = items[0]
+        for item in items[1:]:
+            if item != prev:
+                freqs.append((prev, counter))
+                prev = item
+                counter = 1
+            else:
+                counter += 1
+        freqs.append((prev, counter))
     if as_string:
-        freqs = ",".join([f"{i}:{f}" for i, f in freqs])
+        freqs = ",".join([f"{num}:{freq}" for num, freq in freqs])
     return freqs
