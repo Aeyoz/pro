@@ -4,16 +4,14 @@
 
 
 def run(to_give_back: float, available_currencies: list) -> dict:
-    money_back, debt = {}, 0
-    to_give_back_copy = to_give_back
-    available_currencies = sorted(available_currencies, reverse=True)
-    for currency in available_currencies:
-        return_currency = to_give_back_copy // currency
-        to_give_back_copy %= currency
-        if return_currency > 0:
-            money_back[currency] = return_currency
-        debt += currency * return_currency
-    if debt < to_give_back:
+    money_back = {}
+    for currency in sorted(available_currencies, reverse=True):
+        if not to_give_back:
+            return money_back
+        return_currency = to_give_back // currency
+        to_give_back %= currency
+        money_back[currency] = money_back.get(currency, 0) + return_currency
+    if to_give_back > 0:
         return None
     return money_back
 

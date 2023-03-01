@@ -28,12 +28,4 @@ def run(people: list) -> list:
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     run([{'name': 'DeRozan', 'age': 33}, {'name': 'Lonzo', 'age': 25}, {'name': 'Beverly', 'age': 34}, {'name': 'Dragic', 'age': 36}, {'name': 'Williams', 'age': 21}])
-=======
-    run([{'name': 'DeRozan', 'age': 33}, 
-        {'name': 'Lonzo', 'age': 25},
-        {'name': 'Beverly', 'age': 34},
-        {'name': 'Dragic', 'age': 36},
-        {'name': 'Williams', 'age': 21}])
->>>>>>> dce15e7d75e8a5b1c04e1419f6cac1bb4d113014
