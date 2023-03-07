@@ -9,7 +9,7 @@ def fabs(func):
     return wrapper
 
 @fabs
-def fprod(a, b):
+def fprod(a: int, b: int) -> int:
     return a * b
 
 
