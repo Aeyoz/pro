@@ -12,10 +12,10 @@ def run(max_letters: int) -> str:
     text = []
     while len(text) < max_letters:
         a_gen = text_gen(ALPHABET)
-        lim = min(len(text), max_letters)
-        for _, letter in zip(range(lim), a_gen):
+        for letter in a_gen:
             text.append(letter)
-        
+            if len(text) == max_letters:
+                break
     return "".join(text)
 
 

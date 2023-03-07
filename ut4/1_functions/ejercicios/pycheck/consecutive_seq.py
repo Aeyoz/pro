@@ -3,6 +3,7 @@
 # **************************************************
 
 
-def consecutive_seq():
-    # TU CÓDIGO AQUÍ
-    return
+def consecutive_seq(items):
+    for index, item in enumerate(items):
+        
+    return False
