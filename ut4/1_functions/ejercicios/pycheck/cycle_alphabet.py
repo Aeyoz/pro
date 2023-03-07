@@ -2,15 +2,20 @@
 # ALFABETO CIRCULAR
 # *****************
 
-ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-def run(max_letters: int) -> str:
-    text, counter = [], 0
-    while len(text) < max_letters:
-        text.append(ALPHABET[counter])
-        counter += 1
-        if counter == len(ALPHABET):
-            counter = 0
+def text_gen(text):
+    for letter in text:
+        yield letter
 
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+
+def run(max_letters: int) -> str:
+    text = []
+    while len(text) < max_letters:
+        a_gen = text_gen(ALPHABET)
+        lim = min(len(text), max_letters)
+        for _, letter in zip(range(lim), a_gen):
+            text.append(letter)
+        
     return "".join(text)
 
 
