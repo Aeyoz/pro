@@ -8,8 +8,7 @@ def run(to_give_back: float, available_currencies: dict) -> dict:
     for currency in sorted(available_currencies, reverse=True):
         return_currency = to_give_back // currency
         amount = available_currencies[currency]
-        if return_currency > amount:
-            return_currency -= return_currency - amount
+        return_currency = min(return_currency, amount)
         to_give_back -= currency * return_currency
         money_back[currency] = return_currency
     money_back = {currency: amount for currency, amount in money_back.items() if amount > 0}
