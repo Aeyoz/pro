@@ -2,14 +2,9 @@
 # PANGRAMA
 # ********
 
-
+ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 def is_pangram(word):
-    letters = []
-    pangram_text = True
-    for letter in word:
-        if letter not in letters:
-            letters.append(letter)
-        else:
-            pangram_text = False
-            break
+    set_word = len(set(word))
+    pangram_text = set_word >= len(ALPHABET)
+
     return pangram_text
