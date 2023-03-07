@@ -8,4 +8,3 @@ for _ in range(repetitions + 1):
     result = N + M
     N = M
     M = result
-        
