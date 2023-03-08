@@ -2,18 +2,9 @@
 # IDENTIFICANDO SECUENCIAS CONSECUTIVAS DE UN TAMAÑO
 # **************************************************
 
-def all_same(args):
-    if len(args) >= 2:
-        for item1, item2 in zip(args, args[1:]):
-            if item1 != item2:
-                return False
-        return True
-
 def consecutive_seq(items, target_count, counter=0):
-    piece = items[:target_count]
-    if all_same(piece):
-        return piece[0]
-    if all_same(piece) == None:
+    if items[:target_count].count(items[:target_count][0]) == target_count:
+        return items[:target_count][0]
+    if len(items[:target_count]) <= 1:
         return False
-    items = items[1:]
-    return consecutive_seq(items, target_count, counter+1)
+    return consecutive_seq(items[1:], target_count, counter+1)
