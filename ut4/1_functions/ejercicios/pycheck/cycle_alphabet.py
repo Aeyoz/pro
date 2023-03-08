@@ -2,21 +2,18 @@
 # ALFABETO CIRCULAR
 # *****************
 
-def text_gen(text):
-    for letter in text:
-        yield letter
-
 ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+def text_gen(limit):
+    alpha_len = len(ALPHABET)
+    while limit > 0:
+        election = min(alpha_len, limit)
+        for i in range(election):
+            yield ALPHABET[i]
+        limit -= alpha_len
 
 def run(max_letters: int) -> str:
-    text = []
-    while len(text) < max_letters:
-        a_gen = text_gen(ALPHABET)
-        for letter in a_gen:
-            text.append(letter)
-            if len(text) == max_letters:
-                break
-    return "".join(text)
+    text = "".join([letter for letter in text_gen(max_letters)])
+    return text 
 
 
 if __name__ == '__main__':
