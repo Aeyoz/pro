@@ -3,16 +3,13 @@
 # *****************
 
 ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-def text_gen(limit):
-    alpha_len = len(ALPHABET)
-    while limit > 0:
-        election = min(alpha_len, limit)
-        for i in range(election):
-            yield ALPHABET[i]
-        limit -= alpha_len
+def text_gen(text: str, limit: int = 0):
+    for i in range(limit):
+        current_pos = i % len(text)
+        yield ALPHABET[current_pos]
 
 def run(max_letters: int) -> str:
-    text = "".join([letter for letter in text_gen(max_letters)])
+    text = "".join(text_gen(ALPHABET, max_letters))
     return text 
 
 
