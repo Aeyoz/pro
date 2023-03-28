@@ -36,7 +36,7 @@ class MobilePhone:
             self.battery = NO_CHARGE
             return False, "The phone has run out of battery"
 
-    def switch_status(self) -> None:
+    def switch_status(self) -> str | None:
         if self.battery < CONSUMPTION_RATES["POWER_ON"] * 2:
             return "Not enough battery"
         self.status = not self.status
@@ -51,7 +51,9 @@ class MobilePhone:
             if app not in self.apps:
                 self.apps.append(app)
             else:
-                error_msgs.append(f"Unable to install {app}, already installed")
+                error_msg = f"Unable to install {app}, already installed"
+                if error_msg not in error_msgs:
+                    error_msgs.append(error_msg)
             outcome_status, msg = self.battery_drain("app_operations")
             if not outcome_status:
                 return msg
@@ -65,7 +67,9 @@ class MobilePhone:
             if app in self.apps:
                 self.apps.pop(index)
             else:
-                error_msgs.append(f"Unable to install {app}, already installed")
+                error_msg = f"Unable to install {app}, already installed"
+                if error_msg not in error_msgs:
+                    error_msgs.append(error_msg)
             outcome_status, msg = self.battery_drain("app_operations")
             if not outcome_status:
                 return msg
