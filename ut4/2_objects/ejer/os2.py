@@ -1,8 +1,3 @@
-#TODO
-"""
-    Metodo estático decorador que compruebe si el OS está apagado.
-"""
-
 class OS:
     BOOTED_ERROR = "Turn on the OS"
     ROOT = "/"
