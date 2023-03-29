@@ -110,7 +110,7 @@ class OS:
         match operation_type:
             case "crear":
                 if folder:
-                    if folder in path1:
+                    if file in path1:
                         return False
                     path1[file] = self.NEW_FOLDER
                 else:
