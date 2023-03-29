@@ -127,7 +127,7 @@ class OS:
                     if file not in path1["files"]:
                         return False
                     path1["files"].remove(file)
-            case _:
+            case "mover":
                 if folder:
                     if file not in path1:
                         return False
@@ -140,6 +140,8 @@ class OS:
                     archive = path1["files"][path1["files"].index(file)]
                     path2["files"].append(archive)
                     path1["files"].remove(file)
+            case _:
+                return False
         return True
 
     @status
