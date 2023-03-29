@@ -44,6 +44,7 @@ class OS:
     def private_ip(self):
         return self._OS__private_ip
     
+    @staticmethod
     def status(method):
         def wrapper(self, *args, **kwargs):
             if not self.booted:
