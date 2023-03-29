@@ -1,3 +1,8 @@
+#TODO
+"""
+    Metodo estático decorador que compruebe si el OS está apagado.
+"""
+
 class OS:
     BOOTED_ERROR = "Turn on the OS"
 
@@ -82,30 +87,54 @@ class OS:
     def operate_files(self, operation_type: str, *files:str, folder:str = "/etc", new_folder:str = "/etc"):
         if not self.booted:
             return self.BOOTED_ERROR
+        error_msgs = []
         match operation_type:
             case 'crear':
                 for file in files:
-                    self.files[folder].append(file)
-                return self.files
+                    if file not in self.files:
+                        self.files[folder].append(file)
+                    else:
+                        error_msgs.append(f"File {file} already exists\n")
+                return error_msgs
             case 'mover':
                 for file in files:
-                    archive = self.files[folder][self.files[folder].index(file)]
-                    self.files[new_folder].append(archive)
-                    self.files[folder].remove(archive)
-                return self.files
+                    if file in self.files[folder]:
+                        archive = self.files[folder][self.files[folder].index(file)]
+                        self.files[new_folder].append(archive)
+                        self.files[folder].remove(archive)
+                    else:
+                        error_msgs.append(f"File {file} not found\n")
+                return error_msgs
             case 'eliminar':
                 for file in files:
-                    self.files[folder].remove(file)
+                    if file in self.files[folder]:
+                        self.files[folder].remove(file)
+                    else:
+                        error_msgs.append(f"File {file} not found\n")
+                return error_msgs
             case _:
                 return False
+files = {'/':{"etc":{},"bin":{pepe{lola}},"tmp":{},"var":{}}}
+relative_path = []
+path = "/bin/bash"
+matraca = files[bin]
+matraca = matraca[pepe]
+matraca = matraca[lola]
+for dir in path.strip('/').split('/'):
+    files[] += {}
+    relative_path.append(dir)
 
-    def check_ip(self):
-        network_parts, host_parts = self.public_ip.split(".")
-        return network_parts, host_parts
+bin pepe lola karla lopez dionisio
+
+{"/":{}}
 
 xubuntu = OS()
 
-print(xubuntu.operate_files("crear", "hola_mundo.py", "/etc"))
+print(xubuntu.operate_files("crear", "hola_mundo.py", folder="/etc"))
+print(xubuntu.files)
 print(xubuntu.operate_files("mover", "hola_mundo.py", folder="/etc", new_folder="/bin"))
+print(xubuntu.files)
+print(xubuntu.operate_files("eliminar", "hola_mundo.py", folder="/etc"))
+print(xubuntu.operate_files("eliminar", "hola_mundo.py", folder="/bin"))
+print(xubuntu.files)
 print(xubuntu.private_ip)
-print(xubuntu.check_ip())

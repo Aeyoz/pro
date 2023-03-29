@@ -58,10 +58,18 @@ class OS:
     def operate_files(self, operation_type, first_location:str, second_location, file:str):
         match operation_type:
             case 'crear':
-                self.files[location].append(file)
+                self.files[first_location].append(file)
             case 'mover':
-
+                pass
             case 'eliminar':
-                self.files[location].append(file)
+                self.files[first_location].append(file)
             case _:
                 return False
+
+    @property
+    def prueba(self):
+        return self
+
+windows = OS(host="ayoze", architecture="x64", ip="80.90.61.13", kernel="15.25.2.5", booted=True)
+
+print(windows.prueba)
