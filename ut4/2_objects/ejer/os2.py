@@ -13,7 +13,7 @@ class OS:
         booted: bool = True,
         host: str = "localhost",
         distro: str = "xubuntu",
-        files: dict = {"/etc": [], "/bin": [], "/tmp": {}, "/var":[]}, 
+        files: dict = {"/": {"etc": {"files":[],'wololo':{}}, "bin": {}, "tmp": {}, "var": {}, "home": {"user":{}}}}, 
         packages: list = ["cmatrix"]):
 
         self.__private_ip = ip
@@ -26,6 +26,7 @@ class OS:
         self.booted = booted
         self.graph = True
         self.files = files
+        self.working_dir = "/home/user"
 
     @property
     def kernel(self):
@@ -84,13 +85,15 @@ class OS:
                     error_msgs.append(error_msg)
         return error_msgs
     
-    def operate_files(self, operation_type: str, *files:str, folder:str = "/etc", new_folder:str = "/etc"):
+    def operate_files(self, operation_type: str, *files:str, folder:str = "/home/user", new_folder:str = "/home"):
         if not self.booted:
             return self.BOOTED_ERROR
         error_msgs = []
         match operation_type:
             case 'crear':
+                current_dir = self.files['/']
                 for file in files:
+
                     if file not in self.files:
                         self.files[folder].append(file)
                     else:
@@ -114,7 +117,7 @@ class OS:
                 return error_msgs
             case _:
                 return False
-files = {'/':{"etc":{},"bin":{pepe{lola}},"tmp":{},"var":{}}}
+files = {'/':{"etc":{},"bin":{},"tmp":{},"var":{}}}
 relative_path = []
 path = "/bin/bash"
 matraca = files[bin]
@@ -123,6 +126,14 @@ matraca = matraca[lola]
 for dir in path.strip('/').split('/'):
     files[] += {}
     relative_path.append(dir)
+
+    def loquesea(self):
+        actual_dir = files['/']
+        for file in files:
+            if file not in files:
+                actual_dir[file] = {}
+            actual_dir = actual_dir[file]
+        return actual_dir
 
 bin pepe lola karla lopez dionisio
 
