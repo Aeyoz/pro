@@ -35,7 +35,6 @@ class OS:
         self.booted = booted
         self.graph = True
         self.files = files
-        self.working_dir = "/home/user"
 
     @property
     def kernel(self):
@@ -52,7 +51,7 @@ class OS:
             return method(self, *args, **kwargs)
         return wrapper
 
-    def boot(self) -> bool:
+    def boot(self) -> str:
         self.booted = not self.booted
         status = "Turning on" if self.booted else "Turning off"
         return status
@@ -63,9 +62,8 @@ class OS:
 
     @status
     def change_name(self, name: str) -> str:
-        old_name = self.name
         self.name = name
-        return f"Changed succesfully from {old_name} to {self.name}"
+        return f"Changed succesfully to {self.name}"
 
     @status
     def change_ip(self, ip):
@@ -107,7 +105,8 @@ class OS:
                 return f"Folder {folder} does not exist in the file system", False
         return current_dir, True
 
-    def manage_files(self, operation_type:str, path1:str, file: str, folder: bool=False, path2: str = "/"):
+    @status
+    def manage_files(self, operation_type:str, path1:str, file: str, folder: bool=False, path2: str = "/") -> bool:
         match operation_type:
             case "crear":
                 if folder:
@@ -145,7 +144,7 @@ class OS:
         return True
 
     @status
-    def operate_files(self, operation_type: str, *files: str, folder: bool = False, folder_path: str = "/home/user", new_folder_path: str = "/home") -> list|str|bool|tuple:
+    def operate_files(self, operation_type: str, *files: str, folder: bool = False, folder_path: str = "/home/user", new_folder_path: str = "/home") -> list:
         error_msgs = []
         file_type = "folder" if folder else "file"
         match operation_type:
