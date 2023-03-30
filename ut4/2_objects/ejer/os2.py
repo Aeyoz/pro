@@ -1,3 +1,10 @@
+#TODO
+"""
+- Añadir docstrings a los ultimos 3 metodos
+- Cambiar el nombre de los ultimos 3 metodos
+- Refactorizar lo que se pueda
+"""
+
 class OS:
     ROOT = "/"
     NEW_FOLDER = {"files": []}
@@ -5,12 +12,12 @@ class OS:
     INVALID_FOLDER = "The path given to the folder is invalid\n"
 
     def __init__(self,
-        architecture: str = "x64",
-        ip: str = "88.90.23.16", 
+        distro: str,
+        architecture: str,
+        ip: str, # Privada 
         kernel: str = "5.15.57.1", 
-        booted: bool = False,
         host: str = "localhost",
-        distro: str = "xubuntu",
+        booted: bool = False,
         packages: list = ["cmatrix", "apt", "mysql-server", "fillezilla", "vscode"]):
 
         self.__private_ip = ip
@@ -24,7 +31,7 @@ class OS:
         self.graph = True
         self.files = {"/":
         {"etc": {"files": []}, 
-        'wololo': {"files": []},
+        "wololo": {"files": []},
         "bin": {"files": []}, 
         "tmp": {"files": []}, 
         "var": {"files": []}, 
@@ -174,7 +181,6 @@ class OS:
         return "".join(error_msgs)
 
 xubuntu = OS()
-
 xubuntu.boot()
 print(xubuntu.private_ip)
 print(xubuntu.operate_files("crear", "hola_mundo.py", folder_path="/home/user"))
