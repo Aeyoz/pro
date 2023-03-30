@@ -1,6 +1,6 @@
 class OS:
     ROOT = "/"
-    NEW_FOLDER = {"files": {}}
+    NEW_FOLDER = {"files": []}
     BOOTED_ERROR = "You may want to turn on the OS\n"
     INVALID_FOLDER = "The path given to the folder is invalid\n"
 
@@ -11,15 +11,7 @@ class OS:
         booted: bool = False,
         host: str = "localhost",
         distro: str = "xubuntu",
-        files: dict = {"/":
-        {"etc": {"files": []}, 
-        'wololo': {"files": []},
-        "bin": {"files": []}, 
-        "tmp": {"files": []}, 
-        "var": {"files": []}, 
-        "home": {"files": [], "user": {"files": []}}},
-        "files": []}, 
-        packages: list = ["cmatrix"]):
+        packages: list = ["cmatrix", "apt", "mysql-server", "fillezilla", "vscode"]):
 
         self.__private_ip = ip
         self.__kernel = kernel
@@ -30,7 +22,15 @@ class OS:
         self.public_ip = "192.168.19.5"
         self.booted = booted
         self.graph = True
-        self.files = files
+        self.files = {"/":
+        {"etc": {"files": []}, 
+        'wololo': {"files": []},
+        "bin": {"files": []}, 
+        "tmp": {"files": []}, 
+        "var": {"files": []}, 
+        "home": {"files": [],
+        "user": {"files": []}}},
+        "files": []} 
 
     @property
     def kernel(self):
@@ -47,6 +47,11 @@ class OS:
                 return self.BOOTED_ERROR
             return method(self, *args, **kwargs)
         return wrapper
+    
+    @property
+    def package_list(self):
+        packages = self.packages
+        return ", ".join(packages)
 
     def boot(self) -> str:
         self.booted = not self.booted
@@ -93,6 +98,8 @@ class OS:
     def generate_path(self, path: str) -> tuple:
         if path == self.ROOT:
             return self.files, True
+        if self.ROOT not in path:
+            return self.files[path], True
         folders = path.strip(self.ROOT).split(self.ROOT)
         current_dir = self.files[self.ROOT]
         for folder in folders:
@@ -173,6 +180,12 @@ print(xubuntu.private_ip)
 print(xubuntu.operate_files("crear", "hola_mundo.py", folder_path="/home/user"))
 print(xubuntu.operate_files("crear", "hola_mundo", folder_path="/etc", folder=True))
 print(xubuntu.operate_files("mover", "hola_mundo.py", folder_path="/home/user", new_folder_path="/etc"))
-print(xubuntu.operate_files("mover", "hola_mundo", folder_path="/etc", new_folder_path="/etc", folder=True))
-xubuntu.operate_files("crear", "hola", folder_path="/", folder=True)
+print(xubuntu.operate_files("crear", "hola", folder_path="/", folder=True))
 print(xubuntu.files)
+print(xubuntu.operate_files("crear", "hola", folder_path="/etc"))
+print(xubuntu.files)
+print(xubuntu.operate_files("crear", "hola.py", folder_path="hola"))
+print(xubuntu.files)
+xubuntu.operate_files("mover", "hola", folder_path="/", new_folder_path="/etc", folder=True)
+print(xubuntu.files)
+print(xubuntu.package_list)

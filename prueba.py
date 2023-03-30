@@ -6,6 +6,6 @@ hola = {"/":
         "var": {"files": []}, 
         "home": {"files": []}, 
         "user": {"files": []}},
-        "files": []}
+        "files": [], "hola":{"files": []}}
 
-print(hola["/"]["etc"]["files"])
+print(hola["hola"])
