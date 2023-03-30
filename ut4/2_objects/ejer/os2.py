@@ -1,5 +1,6 @@
 class OS:
     BOOTED_ERROR = "Turn on the OS"
+    INVALID_FOLDER = "The path given to the folder is invalid"
     ROOT = "/"
     NEW_FOLDER = {"files": {}}
 
@@ -92,6 +93,8 @@ class OS:
     
     @status
     def generate_path(self, path: str) -> tuple:
+        if path == self.ROOT:
+            return self.files, True
         folders = path.strip(self.ROOT).split(self.ROOT)
         current_dir = self.files[self.ROOT]
         for folder in folders:
@@ -143,25 +146,27 @@ class OS:
     def operate_files(self, operation_type: str, *files: str, folder: bool = False, folder_path: str = "/home/user", new_folder_path: str = "/home") -> list:
         error_msgs = []
         file_type = "folder" if folder else "file"
+        path1, status1 = self.generate_path(folder_path)
+        if not status1:
+            error_msgs.append(self.INVALID_FOLDER)
+            return error_msgs
         match operation_type:
             case "mover":
-                path1, status1 = self.generate_path(folder_path)
                 path2, status2 = self.generate_path(new_folder_path)
-                if status1 and status2:
-                    for file in files:
-                        error = False
-                        if path1 != path2:
-                            status = self.manage_files(operation_type, path1, file, folder, path2=path2)
-                            error = True if not status else False
-                        if error:
-                            error_msgs.append(f"Something went wrong with the {file_type} {file}")
+                if not status2:
+                    return
+                for file in files:
+                    error = False
+                    if path1 != path2:
+                        status = self.manage_files(operation_type, path1, file, folder, path2=path2)
+                        error = True if not status else False
+                    if error:
+                        error_msgs.append(f"Something went wrong with the {file_type} {file}")
             case _:
-                path1, status1 = self.generate_path(folder_path)
-                if status1:
-                    for file in files:
-                        status = self.manage_files(operation_type, path1, file, folder)
-                        if not status:
-                            error_msgs.append(f"Something went wrong with the {file_type} {file}")
+                for file in files:
+                    status = self.manage_files(operation_type, path1, file, folder)
+                    if not status:
+                        error_msgs.append(f"Something went wrong with the {file_type} {file}")
         return error_msgs
 
 xubuntu = OS()
@@ -169,10 +174,8 @@ xubuntu = OS()
 print(xubuntu.boot())
 print(xubuntu.private_ip)
 print(xubuntu.operate_files("crear", "hola_mundo.py", folder_path="/home/user"))
-print(xubuntu.files)
 print(xubuntu.operate_files("crear", "hola_mundo", folder_path="/etc", folder=True))
-print(xubuntu.files)
 print(xubuntu.operate_files("mover", "hola_mundo.py", folder_path="/home/user", new_folder_path="/etc"))
-print(xubuntu.files)
 print(xubuntu.operate_files("mover", "hola_mundo", folder_path="/etc", new_folder_path="/etc", folder=True))
+xubuntu.operate_files("crear", "hola", folder_path="/", folder=True)
 print(xubuntu.files)
