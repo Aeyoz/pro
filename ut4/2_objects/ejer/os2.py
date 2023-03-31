@@ -44,8 +44,10 @@ class OS:
         "tmp": {"files": []}, 
         "var": {"files": []}, 
         "home": {"files": [],
-        "user": {"files": []}}},
-        "files": []} 
+        "user": {"files": []}, 
+        "ayoze": {"files": []}, 
+        "nuhazet": {"files": []}},
+        "files": []}}
 
     @property
     def kernel(self):
@@ -144,7 +146,7 @@ class OS:
 
     @logged_in
     @status
-    def generate_path(self, path: str, folder: bool) -> tuple:
+    def generate_path(self, path: str) -> tuple:
         """Genera una tupla, el primer valor apunta a una zona especifica del 
         diccionario self.files, el segundo valor determina si esa operación se realizó
         correctamente"""
@@ -163,7 +165,7 @@ class OS:
 
     @logged_in
     @status
-    def manage_files(self, operation_type:str, path1:str, file: str, folder: bool=False, path2: str = "/") -> bool:
+    def manage_files(self, operation_type:str, path1:dict, file: str, folder: bool=False, path2: dict = {"/": []}) -> bool:
         """Comprueba el tipo de operación y el estado del argumento folder y crear
         carpetas o ficheros en función de esto"""
         match operation_type:
@@ -204,20 +206,20 @@ class OS:
 
     @logged_in
     @status
-    def operate_files(self, operation_type: str, *files: str, folder: bool = False, folder_path: str = "/home/user", new_folder_path: str = "/home") -> list:
+    def operate_files(self, operation_type: str, *files: str, folder: bool = False, folder_path: str = "/home/user", new_folder_path: str = "/home") -> str:
         """Recibe el tipo de operación que se quiere realizar, los ficheros 
         sobre los que se va a trabajar, y la o las carpetas de destino,
         además del parámetro folder que determina si lo que se va a crear es 
         una carpeta o un fichero, y un new_folder_path si se va a mover ficheros o carpetas """
         error_msgs = []
         file_type = "folder" if folder else "file"
-        path1, status1 = self.generate_path(folder_path, folder)
+        path1, status1 = self.generate_path(folder_path)
         if not status1:
             error_msgs.append(path1)
             return "".join(error_msgs)
         match operation_type:
             case "mover":
-                path2, status2 = self.generate_path(new_folder_path, folder)
+                path2, status2 = self.generate_path(new_folder_path)
                 if not status2:
                     error_msgs.append(path2)
                     return "".join(error_msgs)
@@ -264,10 +266,13 @@ class OS:
     def manage_user_data(
         self, operation_mode: str, user: str, 
         user_data: str, access_mode: str,
+        autentication_string: str,
         new_password: str = "", 
         new_access_mode: str = "restricted") -> str:
         """Permite modificar la contraseña y los permisos que tienen los usuarios
         e impide modificar los permisos del usuario root"""
+        if autentication_string != self.users["root"]["passwd"]:
+            return "Invalid password, try again"
         match operation_mode, access_mode:
             case "modificar", "sudo":
                 if user not in self.users:
