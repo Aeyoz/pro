@@ -3,7 +3,7 @@
 # **********************
 
 
-def bubble(items):
+def bubble(items) -> list:
     sorted_items = items.copy()
     change = True
     while change:

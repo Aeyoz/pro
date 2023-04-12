@@ -13,4 +13,3 @@ def find_item(items: tuple, value: int = 2) -> int:
 
 print(find_item((1, 2, 2, 3, 4, 5, 6, 2, 3, 2, 99, 7, 4, 5, 7), 99))
 print(find_item((1, 2, 2, 3, 4, 5, 6, 2, 3, 2, 99, 7, 4, 5, 7), 3))
-print(help(find_item))

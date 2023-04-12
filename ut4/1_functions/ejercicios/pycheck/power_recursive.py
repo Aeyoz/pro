@@ -2,12 +2,5 @@
 # POTENCIA RECURSIVA
 # ******************
 
-
-def power():
-    pass
-
-def power(n):
+def power(n) -> int:
     return n ** n
-
-print(0**0)
-print(power(5))

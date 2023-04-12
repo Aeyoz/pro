@@ -3,7 +3,7 @@
 # ***********************
 
 
-def sum_nested(items: list[int|list], additions=0):
+def sum_nested(items: list[int|list], additions=0) -> int:
     if isinstance(items[0], list):
         return sum_nested(items[0], additions+0)
     else:

@@ -3,7 +3,7 @@
 # *******************************************************
 
 
-def factorial(n: int) -> int|None:
+def factorial(n: int):
     if n < 0:
         return None
     if n == 0:

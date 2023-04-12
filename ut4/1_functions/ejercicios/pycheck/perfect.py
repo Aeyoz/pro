@@ -3,8 +3,8 @@
 # *****************
 
 
-def is_perfect(num):
-    def get_divs(num):
+def is_perfect(num) -> bool:
+    def get_divs(num) -> list:
         divs = []
         for div in range(1, num//2 + 1):
             if num % div == 0:

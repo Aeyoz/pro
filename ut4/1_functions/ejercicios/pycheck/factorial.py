@@ -2,7 +2,7 @@
 # CALCULANDO EL FACTORIAL DE UN NÚMERO
 # ************************************
 
-def factorial(n):
+def factorial(n) -> None|int:
     if n < 0:
         return None
     prod = 1

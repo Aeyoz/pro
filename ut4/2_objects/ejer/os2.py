@@ -38,7 +38,7 @@ class OS:
         self.user = "" #No hay usuario que haya iniciado sesión al iniciar el SO
         self.files = {"/":
         {"root": {"files": []},
-        "etc": {"files": []}, 
+        "etc": {"files": []},  
         "wololo": {"files": []},
         "bin": {"files": []}, 
         "tmp": {"files": []}, 

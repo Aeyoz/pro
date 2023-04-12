@@ -3,7 +3,7 @@
 # ********************
 
 
-def run(to_give_back: float, available_currencies: list) -> dict:
+def run(to_give_back: float, available_currencies: list) -> dict|None:
     money_back = {}
     available_currencies = sorted(available_currencies, reverse=True)
     for currency in sorted(available_currencies, reverse=True):

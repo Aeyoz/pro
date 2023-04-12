@@ -3,23 +3,23 @@
 # ********************
 
 # VERSION AYOZE
-def run(people: list) -> list:
-    speople = []
-    for element in people:
-        values = []
-        for item in element.values():
-            values.append(item)
-        speople.append(values)
-    speople = sorted(speople, key=lambda x: x[1])
-    speople = [dict(age=age, name=name) for name, age in speople]
-    return speople
+#def run(people: list) -> list:
+#    speople = []
+#    for element in people:
+#        values = []
+#        for item in element.values():
+#            values.append(item)
+#        speople.append(values)
+#    speople = sorted(speople, key=lambda x: x[1])
+#    speople = [dict(age=age, name=name) for name, age in speople]
+#    return speople
 
 # VERSION DIEGO
-def run(people: list) -> list:
-    person = [tuple(people.items()) for people in people]
-    new_people = sorted(person, key=lambda x: x[1])
-    speople = [dict(age=age, name=name) for name, age in new_people]
-    return speople
+#def run(people: list) -> list:
+#    person = [tuple(people.items()) for people in people]
+#    new_people = sorted(person, key=lambda x: x[1])
+#    speople = [dict(age=age, name=name) for name, age in new_people]
+#    return speople
 
 # VERSION ABIAN
 def run(people: list) -> list:

@@ -3,7 +3,7 @@
 # ********
 
 ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-def is_pangram(word):
+def is_pangram(word) -> bool:
     set_word = len(set(word))
     pangram_text = set_word >= len(ALPHABET)
 

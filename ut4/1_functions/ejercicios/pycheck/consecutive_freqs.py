@@ -3,7 +3,7 @@
 # ************************************
 
 
-def cfreq(items, /, as_string=False):
+def cfreq(items, /, as_string=False) -> list:
     freqs = []
     counter = 1
     if len(items) > 0:

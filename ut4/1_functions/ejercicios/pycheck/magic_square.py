@@ -2,7 +2,7 @@
 # CUADRADO MÁGICO
 # ***************
 
-def is_magic_square(values):
+def is_magic_square(values) -> bool:
     all_values = []
     rows, cols, diagonal, inverted_diagonal = {}, {}, 0, 0
     for row, matrix in enumerate(values, start=0):
