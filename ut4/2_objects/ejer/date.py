@@ -1,13 +1,15 @@
 class Date:
+    DAYS_IN_FIRST_YEAR = 366
     DAYS_IN_LEAP_YEAR = 366
     DAYS_IN_YEAR = 365
     DAYS_IN_MONTH = {
         1:31, 2:28, 3:31, 4:30,
         5:31, 6:30, 7:31, 8:31,
         9:30, 10:31, 11:30, 12:31}
-    FIRST_MONTH = 1
-    FEBRUARY = 2
+    FIRST_MONTH_AND_DAY = 1
     LAST_MONTH = 12
+    FEBRUARY = 2
+
     START_YEAR = 1900
     LAST_YEAR = 2050
     def __init__(self, day: int, month: int, year: int):
@@ -32,27 +34,35 @@ class Date:
         return self.DAYS_IN_MONTH[self.month]
 
 # CAMBIAR
-    def add_days_in_month(self) -> int:
+    def add_days_in_month(self, year=0) -> int:
+        year_to_compare = year if year != 0 else self.year
+        days = 0
         for month in range(self.month + 1, self.LAST_MONTH + 1):
-            if self.check_leap_year(year) and month == self.FEBRUARY:
+            if self.check_leap_year(year_to_compare) and month == self.FEBRUARY:
                 added_days = 0 if self.month != self.FEBRUARY else 1
                 days += self.DAYS_IN_MONTH[month] + added_days
             days += self.DAYS_IN_MONTH[month]
-        pass
+        return days
 
-    def delta_days(self) -> int:
-        '''Número de días transcurridos desde el 1-1-1900 hasta la fecha'''
-        days = self.DAYS_IN_MONTH[self.month] - self.days
-        for month in range(self.month + 1, self.LAST_MONTH + 1):
-            if self.check_leap_year(self.year) and month == self.FEBRUARY:
-                added_days = 0 if self.month != self.FEBRUARY else 1
-                days += self.DAYS_IN_MONTH[month] + added_days
-            days += self.DAYS_IN_MONTH[month]
+    def add_days_in_year(self):
         for year in range(self.START_YEAR, self.year):
             if self.check_leap_year(year):
                 days += self.DAYS_IN_LEAP_YEAR
             else:
                 days += self.DAYS_IN_YEAR
+
+    def delta_days(self) -> int:
+        '''Número de días transcurridos desde el 1-1-1900 hasta la fecha'''
+        #                                       15-2-1900
+        if self.year == self.START_YEAR:
+            months = self.month - self.FIRST_MONTH_AND_DAY
+            days = self.day - self.FIRST_MONTH_AND_DAY
+            to_add_days = days + self.DAYS_IN_MONTH.get(self.DAYS_IN_MONTH + 1, 0)
+            to_add_days = self.DAYS_IN_MONTH[self.month] - self.day
+
+#        to_add_days += self.add_days_in_month()
+#        to_add_days += self.add_days_in_year()
+        return to_add_days
 
     def weekday(self) -> int:
         '''día de la semana de la fecha (0 para domingo, ..., 6 para sábado).
@@ -71,7 +81,8 @@ class Date:
         pass
 
 
-date = Date(1,1,1900)
+date = Date(15,2,1900)
+print(date.delta_days())
 print(date.is_leap_year())
 
 
