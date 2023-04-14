@@ -34,35 +34,31 @@ class Date:
         return self.DAYS_IN_MONTH[self.month]
 
 # CAMBIAR
-    def add_days_in_month(self, year=0) -> int:
-        year_to_compare = year if year != 0 else self.year
-        days = 0
-        for month in range(self.month + 1, self.LAST_MONTH + 1):
-            if self.check_leap_year(year_to_compare) and month == self.FEBRUARY:
-                added_days = 0 if self.month != self.FEBRUARY else 1
-                days += self.DAYS_IN_MONTH[month] + added_days
+    def add_days_in_month(self) -> int:
+        added_days = 1 if self.month >= self.FEBRUARY and self.check_leap_year(self.year) else 0
+        for month in range(self.FIRST_MONTH_AND_DAY, self.month):
             days += self.DAYS_IN_MONTH[month]
+        days += added_days
         return days
 
     def add_days_in_year(self):
+        days = 0
         for year in range(self.START_YEAR, self.year):
             if self.check_leap_year(year):
                 days += self.DAYS_IN_LEAP_YEAR
             else:
                 days += self.DAYS_IN_YEAR
+        return days
 
     def delta_days(self) -> int:
         '''Número de días transcurridos desde el 1-1-1900 hasta la fecha'''
-        #                                       15-2-1900
+        days = self.DAYS_IN_MONTH[self.month] - self.day
         if self.year == self.START_YEAR:
-            months = self.month - self.FIRST_MONTH_AND_DAY
-            days = self.day - self.FIRST_MONTH_AND_DAY
-            to_add_days = days + self.DAYS_IN_MONTH.get(self.DAYS_IN_MONTH + 1, 0)
-            to_add_days = self.DAYS_IN_MONTH[self.month] - self.day
-
-#        to_add_days += self.add_days_in_month()
-#        to_add_days += self.add_days_in_year()
-        return to_add_days
+            to_add_days = days + self.DAYS_IN_MONTH.get(self.month + 1, 0)
+            return to_add_days
+        days += self.add_days_in_year()
+        days += self.add_days_in_month()
+        return days
 
     def weekday(self) -> int:
         '''día de la semana de la fecha (0 para domingo, ..., 6 para sábado).
