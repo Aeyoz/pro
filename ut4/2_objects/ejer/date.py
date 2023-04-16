@@ -57,7 +57,9 @@ class Date:
         if self.year == self.START_YEAR:
             months = self.month - self.FIRST_MONTH_AND_DAY
             days = self.day - self.FIRST_MONTH_AND_DAY
-            to_add_days = days + self.DAYS_IN_MONTH.get(self.DAYS_IN_MONTH + 1, 0)
+            if self.is_leap_year() and self.month == self.FEBRUARY:
+                to_add_days = days + 1 + self.DAYS_IN_MONTH.get(self.DAYS_IN_MONTH + 1, 0)
+    
             to_add_days = self.DAYS_IN_MONTH[self.month] - self.day
 
 #        to_add_days += self.add_days_in_month()
