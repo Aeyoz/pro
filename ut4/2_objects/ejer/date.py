@@ -1,7 +1,7 @@
 class Date:
     DAYS_IN_LEAP_YEAR = 366
     DAYS_IN_YEAR = 365
-    WEEKDAYS = {0:"sunday", 1:"monday", 2:"tuesday", 3:"wednesday", 4:"thursday", 5:"friday", 6:"saturday"}
+    WEEKDAYS = {0:"DOMINGO", 1:"LUNES", 2:"MARTES", 3:"MIERCOLES", 4:"JUEVES", 5:"VIERNES", 6:"SABADO"}
     FIRST_MONTH_AND_DAY = 1
     LAST_MONTH = 12
     START_YEAR = 1900
@@ -19,23 +19,23 @@ class Date:
         self.leap = Date.is_leap_year(self)
         february_days = 29 if self.leap else 28
         self.DAYS_IN_MONTH = [
-        {"days":31, "month_number": 1, "month_name":"january"}, 
-        {"days": february_days, "month_number": 2, "month_name":"february"}, 
-        {"days":31, "month_number": 3, "month_name":"march"}, 
-        {"days":30, "month_number": 4, "month_name": "april"},
-        {"days":31, "month_number": 5, "month_name":"may"}, 
-        {"days":30, "month_number": 6, "month_name": "june"}, 
-        {"days":31, "month_number": 7, "month_name":"july"}, 
-        {"days":31, "month_number": 8, "month_name":"august"},
-        {"days":30, "month_number": 9, "month_name":"september"}, 
-        {"days":31, "month_number": 10, "month_name":"october"},  
-        {"days":30, "month_number": 11, "month_name":"november"},
-        {"days":31, "month_number": 12, "month_name":"december"}]
+        {"days":31, "month_name":"ENERO"}, 
+        {"days": february_days, "month_name":"FEBRERO"}, 
+        {"days":31, "month_name":"MARZO"}, 
+        {"days":30, "month_name": "ABRIL"},
+        {"days":31, "month_name":"MAYO"}, 
+        {"days":30, "month_name": "JUNIO"}, 
+        {"days":31, "month_name":"JULIO"}, 
+        {"days":31, "month_name":"AGOSTO"},
+        {"days":30, "month_name":"SEPTIEMBRE"}, 
+        {"days":31, "month_name":"OCTUBRE"},  
+        {"days":30, "month_name":"NOVIEMBRE"},
+        {"days":31, "month_name":"DICIEMBRE"}]
         self.day = day if day <= self.DAYS_IN_MONTH[self.month - 1]["days"] else 1
 
     @staticmethod
-    def is_leap_year(other, year=0) -> bool:
-        year = other.year if not year else year
+    def is_leap_year(item) -> bool:
+        year = item.year if not isinstance(item, int) else item
         return year % 4 == 0 and year % 100 != 0 or year % 400 == 0
 
     @property
@@ -51,7 +51,7 @@ class Date:
     def add_days_in_year(self):
         days = 0
         for year in range(self.START_YEAR, self.year):
-            if Date.is_leap_year(self, year):
+            if Date.is_leap_year(year):
                 days += self.DAYS_IN_LEAP_YEAR
             else:
                 days += self.DAYS_IN_YEAR
@@ -66,21 +66,26 @@ class Date:
         days += self.day - self.FIRST_MONTH_AND_DAY + self.add_days_in_month() + self.add_days_in_year()
         return days
 
+    @property
     def weekday(self) -> int:
         '''día de la semana de la fecha (0 para domingo, ..., 6 para sábado).
         El 1-1-1900 fue domingo.'''
-        day_calc = self.delta_days() % 7 + 1
+        day_calc = (self.delta_days() + 1) % 7
         day = day_calc if day_calc in self.WEEKDAYS else 0
-        return f"The day {self.day}/{self.month}/{self.year} was {self.WEEKDAYS[day]}"
+        return day
 
+    @property
     def is_weekend(self) -> bool:
-        day_calc = self.delta_days() % 7 + 1
+        day_calc = (self.delta_days() + 1) % 7
         day = day_calc if day_calc in self.WEEKDAYS else 0
         return day == 0 or day > 5
 
+    @property
     def short_date(self) -> str:
         '''02/09/2003'''
-        return f"{self.day}/{self.month}/{self.year}"
+        day = str(self.day) if len(str(self.day)) >= 2 else f"0{self.day}"
+        month = str(self.month) if len(str(self.month)) > 2 else f"0{self.month}"
+        return f"{day}/{month}/{self.year}"
 
     def __eq__(self, other):
         return self.month == other.month and self.day == other.day and self.year == other.year
@@ -110,8 +115,7 @@ class Date:
             if month > self.LAST_MONTH:
                 month = 1
                 year += 1
-            total_days_month = self.DAYS_IN_MONTH[month - 1]["days"] + (
-            self.is_leap_year(self, year) and month == 2)
+            total_days_month = self.DAYS_IN_MONTH[month - 1]["days"] + int(self.leap and month == 2)
         return Date(total_days, month, year)
     
     def __sub__(self, other: int) -> int:
@@ -125,16 +129,15 @@ class Date:
                 if month < self.FIRST_MONTH_AND_DAY:
                     month = self.LAST_MONTH
                     year -= 1
-                total_days_month = self.DAYS_IN_MONTH[month - 1]["days"] + (self.leap and month == 2)
+                total_days_month = self.DAYS_IN_MONTH[month - 1]["days"] + int(self.leap and month == 2)
                 total_days += total_days_month
             return Date(total_days, month, year)
+        else:
+            return self.delta_days() - other.delta_days()
 
     def __str__(self):
         '''martes 2 de septiembre de 2003'''
-        day_calc = self.delta_days() % 7 + 1
-        day = day_calc if day_calc in self.WEEKDAYS else 0
-        week_day = self.WEEKDAYS[day]
-        return f"{week_day} {self.day} of {self.month} of {self.year}"
+        return f"{self.WEEKDAYS[self.weekday]} {self.day} DE {self.DAYS_IN_MONTH[self.month - 1]['month_name']} DE {self.year}"
 
 #date = Date(20,9,2002)
 #print(date.short_date())

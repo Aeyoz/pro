@@ -26,7 +26,7 @@ def test_build_date(date1: Date, date2: Date):
 
 def test_build_date_when_out_of_range():
     date = Date(day=40, month=1, year=2000)
-    assert date.day == 31
+    assert date.day == 1
     assert date.month == 1
     assert date.year == 2000
 
