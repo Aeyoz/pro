@@ -1,5 +1,5 @@
 import pytest
-from date import Date
+from date2 import Date
 
 @pytest.fixture
 def date1():

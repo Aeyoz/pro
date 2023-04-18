@@ -19,7 +19,7 @@ class Date:
         self.leap = Date.is_leap_year(self)
         self.DAYS_IN_MONTH = [
         {"days":31, "month_name":"ENERO"}, 
-        {"days":28, "month_name":"FEBRERO"}, 
+        {"days":self.february_days, "month_name":"FEBRERO"}, 
         {"days":31, "month_name":"MARZO"}, 
         {"days":30, "month_name": "ABRIL"},
         {"days":31, "month_name":"MAYO"}, 
