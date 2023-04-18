@@ -1,16 +1,13 @@
 import pytest
-from date import Date
-
+from date2 import Date
 
 @pytest.fixture
 def date1():
     return Date(day=1, month=3, year=1979)
 
-
 @pytest.fixture
 def date2():
     return Date(day=24, month=6, year=1984)
-
 
 def test_build_date(date1: Date, date2: Date):
     assert isinstance(date1, Date)
@@ -22,7 +19,6 @@ def test_build_date(date1: Date, date2: Date):
     assert date2.day == 24
     assert date2.month == 6
     assert date2.year == 1984
-
 
 def test_build_date_when_out_of_range():
     date = Date(day=40, month=1, year=2000)
@@ -40,13 +36,11 @@ def test_build_date_when_out_of_range():
     assert date.month == 1
     assert date.year == 1900
 
-
 def test_is_leap_year():
     assert not Date.is_leap_year(1997)
     assert not Date.is_leap_year(1999)
     assert Date.is_leap_year(2008)
     assert Date.is_leap_year(2016)
-
 
 def test_days_in_month():
     date = Date(day=1, month=1, year=2005)
@@ -58,30 +52,24 @@ def test_days_in_month():
     date = Date(day=1, month=2, year=2004)
     assert date.days_in_month == 29
 
-
 def test_get_delta_days(date1: Date):
-    assert date1.delta_days() == 28913
-
+    assert date1.get_delta_days() == 28913
 
 def test_weekday(date1: Date, date2: Date):
     assert date1.weekday == 4
     assert date2.weekday == 0
 
-
 def test_is_weekend(date1: Date, date2: Date):
     assert not date1.is_weekend
     assert date2.is_weekend
-
 
 def test_short_date(date1: Date, date2: Date):
     assert date1.short_date == '01/03/1979'
     assert date2.short_date == '24/06/1984'
 
-
 def test_date_string(date1: Date, date2: Date):
     assert str(date1) == 'JUEVES 1 DE MARZO DE 1979'
     assert str(date2) == 'DOMINGO 24 DE JUNIO DE 1984'
-
 
 def test_add_dates(date1: Date):
     date = date1 + 145
@@ -89,10 +77,8 @@ def test_add_dates(date1: Date):
     assert date.month == 7
     assert date.year == 1979
 
-
 def test_substract_two_dates(date1: Date, date2: Date):
     assert date2 - date1 == 1942
-
 
 def test_substract_days_to_date(date1: Date):
     date = date1 - 231
@@ -100,17 +86,14 @@ def test_substract_days_to_date(date1: Date):
     assert date.month == 7
     assert date.year == 1978
 
-
 def test_dates_are_equal(date1: Date, date2: Date):
     assert date1 == date1
     assert date2 == date2
     assert not date1 == date2
     assert not date2 == date1
 
-
 def test_date_is_greater_than_other_date(date1: Date, date2: Date):
     assert date2 > date1
-
 
 def test_date_is_lower_than_other_date(date1: Date, date2: Date):
     assert date1 < date2
