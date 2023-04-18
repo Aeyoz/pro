@@ -19,18 +19,19 @@ class Date:
         self.leap = Date.is_leap_year(self)
         self.DAYS_IN_MONTH = [
         {"days":31, "month_name":"ENERO"}, 
-        {"days": self.february_days, "month_name":"FEBRERO"}, 
+        {"days":28, "month_name":"FEBRERO"}, 
         {"days":31, "month_name":"MARZO"}, 
-        {"days":30, "month_name": "ABRIL"},
+        {"days":30, "month_name":"ABRIL"},
         {"days":31, "month_name":"MAYO"}, 
-        {"days":30, "month_name": "JUNIO"}, 
+        {"days":30, "month_name":"JUNIO"}, 
         {"days":31, "month_name":"JULIO"}, 
         {"days":31, "month_name":"AGOSTO"},
         {"days":30, "month_name":"SEPTIEMBRE"}, 
         {"days":31, "month_name":"OCTUBRE"},  
         {"days":30, "month_name":"NOVIEMBRE"},
         {"days":31, "month_name":"DICIEMBRE"}]
-        self.day = day if day <= self.DAYS_IN_MONTH[self.month - 1]["days"] else self.FIRST_MONTH_AND_DAY
+        self.added_days = int(self.leap and self.month == 2)
+        self.day = day if day <= self.DAYS_IN_MONTH[self.month - 1]["days"] + self.added_days else self.FIRST_MONTH_AND_DAY
 
     @staticmethod
     def is_leap_year(item: Date|int) -> bool:
@@ -40,10 +41,6 @@ class Date:
     @property
     def days_in_month(self: Date) -> int:
         return self.DAYS_IN_MONTH[self.month - 1]["days"]
-
-    @property
-    def february_days(self: Date) -> int:
-        return 29 if self.leap else 28
 
     def add_days_in_month(self) -> int:
         days = 0
@@ -98,18 +95,19 @@ class Date:
             return False
         return not self.__gt__(other)
 
-    def __add__(self, n_of_days: int) -> Date:
+    def __add__(self, num_of_days: int) -> Date:
         month = self.month
         year = self.year
-        total_days = self.day + n_of_days
+        total_days = self.day + num_of_days
         total_days_month = self.days_in_month
+        added_days = int(self.leap and self.month == 2)
         while total_days > total_days_month:
             total_days -= total_days_month
             month += self.FIRST_MONTH_AND_DAY
             if month > self.LAST_MONTH:
                 month = 1
                 year += 1
-            total_days_month = self.DAYS_IN_MONTH[month - 1]["days"]
+            total_days_month = self.DAYS_IN_MONTH[month - 1]["days"] + added_days
         return Date(total_days, month, year)
     
     def __sub__(self, other: int|Date) -> int|Date:
@@ -118,12 +116,13 @@ class Date:
             year = self.year
             total_days = self.day - other
             total_days_month = self.days_in_month
+            added_days = int(self.leap and self.month == 2)
             while total_days < self.FIRST_MONTH_AND_DAY:
                 month -= 1
                 if month < self.FIRST_MONTH_AND_DAY:
                     month = self.LAST_MONTH
                     year -= 1
-                total_days_month = self.DAYS_IN_MONTH[month - 1]["days"]
+                total_days_month = self.DAYS_IN_MONTH[month - 1]["days"] + added_days
                 total_days += total_days_month
             return Date(total_days, month, year)
         else:
