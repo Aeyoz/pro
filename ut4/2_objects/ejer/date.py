@@ -31,8 +31,7 @@ class Date:
         {"days":31, "month_name":"OCTUBRE"},  
         {"days":30, "month_name":"NOVIEMBRE"},
         {"days":31, "month_name":"DICIEMBRE"}]
-        added_days = int(self.leap and self.month == 2)
-        self.day = day if day <= self.DAYS_IN_MONTH[self.month - 1]["days"] + added_days else 1
+        self.day = day if self.FIRST_MONTH_AND_DAY <= day <= self.days_in_month else 1
 
     @staticmethod
     def is_leap_year(year) -> bool:
@@ -131,4 +130,6 @@ class Date:
         '''martes 2 de septiembre de 2003'''
         return f"{self.WEEKDAYS[self.weekday]} {self.day} DE {self.DAYS_IN_MONTH[self.month - 1]['month_name']} DE {self.year}"
 
-date = Date(20,9,2004)
+date = Date(29,2,2012)
+
+print(date.weekday)
