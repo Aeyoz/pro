@@ -12,6 +12,7 @@ class File:
         return sum([len(i) for i in self.content])
     
     def info(self):
+        return vars(self)
         return f"{self.path} [{self.size}B]"
     
 class MediaFile(File):

@@ -10,6 +10,5 @@ elif num3 < num1 and num3 < num2:
     min_value = num3
 else:
     print("Error")
-    
 
 print(min_value)
