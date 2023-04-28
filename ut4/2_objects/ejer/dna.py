@@ -1,5 +1,5 @@
-from pathlib import Path
 from __future__ import annotations
+from pathlib import Path
 
 class DNA:
     ADENINE = "A"
@@ -17,19 +17,19 @@ class DNA:
 
     @property
     def adenines(self):
-        return self.bases[self.ADENINE]
+        return self.bases[DNA.ADENINE]
 
     @property
     def thymines(self):
-        return self.bases[self.THYMINE]
+        return self.bases[DNA.THYMINE]
 
     @property
     def cytosines(self):
-        return self.bases[self.CYTOSINE]
+        return self.bases[DNA.CYTOSINE]
 
     @property
     def guanines(self):
-        return self.bases[self.GUANINE]
+        return self.bases[DNA.GUANINE]
 
     def __len__(self):
         return len(self.sequence)
@@ -41,17 +41,16 @@ class DNA:
     def __str__(self):
         return self.sequence
     
-    def __add__(self, other):
+    def __add__(self, other: DNA) -> DNA:
         new_dna_seq = "".join(max(base, base2) for base, base2 in zip(self.sequence, other.sequence))
         if len(self) == len(other):
             return DNA(new_dna_seq)
-        else:
-            longuest_dna_seq = max(len(self), len(other))
-            shortest_dna_seq = min(len(self), len(other))
-            new_sequence = self.sequence if len(self) == longuest_dna_seq else other.sequence
-            new_added_length = longuest_dna_seq - shortest_dna_seq
-            new_dna_seq += new_sequence[new_added_length:]
-            return DNA(new_dna_seq)
+        longuest_dna_seq = max(len(self), len(other))
+        shortest_dna_seq = min(len(self), len(other))
+        new_sequence = self.sequence if len(self) == longuest_dna_seq else other.sequence
+        new_added_length = longuest_dna_seq - shortest_dna_seq
+        new_dna_seq += new_sequence[new_added_length:]
+        return DNA(new_dna_seq)
 
     def __mul__(self, other: DNA) -> DNA:
         return DNA("".join(base for base, base2 in zip(self.sequence, other.sequence) if base == base2))
