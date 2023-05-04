@@ -10,7 +10,8 @@ class IntegerStack:
         '''Si la pila está llena retornar False, en otro caso retornar True'''
         if len(self.items) < self.max_size:
             self.items.insert(0, item)
-        return not len(self.items) == self.max_size
+            return True
+        return False
 
     def pop(self) -> int:
         '''Extraer el elemento que está en el TOP de la pila'''
@@ -75,7 +76,7 @@ class IntegerStack:
         return new_integer_stack
 
     def __iter__(self) -> IntegerStackIterator:
-        return IntegerStackIterator()
+        return IntegerStackIterator(self)
 
 class IntegerStackIterator:
     def __init__(self, stack: IntegerStack):
@@ -84,7 +85,8 @@ class IntegerStackIterator:
         self.stack = stack
 
     def __next__(self) -> int:
-        item = 0
         if self.iterations == self.limit:
             raise StopIteration
-        return self.stack[self.iterations]
+        item = self.stack[self.iterations]
+        self.iterations += 1
+        return item
