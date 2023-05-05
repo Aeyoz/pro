@@ -6,7 +6,6 @@ class DNA:
     THYMINE = "T"
     CYTOSINE = "C"
     GUANINE = "G"
-    nitrogenous_bases = [ADENINE, THYMINE, CYTOSINE, GUANINE]
     def __init__(self, dna_seq):
         self.sequence = dna_seq
     
@@ -59,7 +58,7 @@ class DNA:
         return self.sequence[index]
 
     def __setitem__(self, index: int, value: str):
-        value = self.ADENINE if value not in self.nitrogenous_bases else value
+        value = self.ADENINE if value not in self.bases else value
         dna_seq = list(self.sequence)
         dna_seq[index] = value
         self.sequence = "".join(dna_seq)
