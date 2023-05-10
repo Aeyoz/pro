@@ -10,8 +10,8 @@ class IntegerStack:
         '''Si la pila está llena retornar False, en otro caso retornar True'''
         if len(self.items) < self.max_size:
             self.items.insert(0, item)
-            return True
-        return False
+            return True         # No me gusta esta solucion    
+        return False            # Para retornar el estado, pero es que no encuentro otra
 
     def pop(self) -> int:
         '''Extraer el elemento que está en el TOP de la pila'''
@@ -69,9 +69,8 @@ class IntegerStack:
         '''La segunda pila va "encima" de la primera'''
         max_size = self.max_size + other.max_size
         new_integer_stack = IntegerStack(max_size=max_size)
-        for item1 in self.items[::-1]: 
-            new_integer_stack.push(item1)
-        for item2 in other.items[::-1]:
+        new_integers = self.items[::-1] + other.items[::-1] 
+        for item2 in new_integers:
             new_integer_stack.push(item2)
         return new_integer_stack
 

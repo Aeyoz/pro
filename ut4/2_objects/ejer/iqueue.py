@@ -31,7 +31,7 @@ class IntegerQueue:
 
     def is_empty(self) -> bool:
         """Indica si la cola está vacía"""
-        return not self.items
+        return len(self) == 0
 
     def is_full(self) -> bool:
         """Indica si la cola está llena -> max_size"""
