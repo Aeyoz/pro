@@ -49,15 +49,6 @@ class Card:
                 raise InvalidCardError(f"{repr(value)} is not a supported symbol")
             self.value = Card.SYMBOLS.index(value) + 1
 
-    #    @staticmethod
-    #    def is_card(method):
-    #        def wrapper(self, *args, **kwargs):
-    #            if isinstance(self, Card):
-    #                return method(Card, *args, **kwargs)
-    #            return False
-    #
-    #        return wrapper
-
     @property
     def cmp_value(self) -> int:
         """Devuelve el valor (numérico) de la carta para comparar con otras.
