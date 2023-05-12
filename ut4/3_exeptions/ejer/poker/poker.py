@@ -117,7 +117,3 @@ class InvalidCardError(Exception):
         if self.message:
             return f"{self.header}{self.message}"
         return f"{self.header.replace(': ', '')}"
-
-
-pepe = Card("K", "❤")
-print(pepe)
