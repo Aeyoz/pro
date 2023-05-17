@@ -39,57 +39,48 @@ class Host:
             if len(octets) > Host.OCTETS:
                 raise IPAddressError("Only 4 octets are allowed")
             if len(octets) < Host.OCTETS:
-                for _ in range(Host.OCTETS - len(args)):
-                    octets.append(0)
+                octets.extend([0] * (Host.OCTETS - len(args)))
             self.ip_octets = tuple(octets)
 
     @property
     def ip(self) -> str:
         '''Devuelve la IP del host en formato string.
         Ejemplo: "192.168.1.5"'''
-        octets = (str(octet) for octet in self.ip_octets)
-        return ".".join(octets)
+        return ".".join(str(octet) for octet in self.ip_octets)
 
     @property
     def bip(self) -> str:
         '''Devuelve la IP en formato binario. Ojo que cada octeto debe tener 8 bits.
         Ejemplo: "11000000101010000000000100000101"'''
-        octets = [f"{int(octet):08b}" for octet in self.ip_octets]
-        return "".join(octets)
+        return "".join(f"{octet:08b}" for octet in self.ip_octets)
 
     @property
     def addr_bmask(self) -> str:
         '''Devuelve la parte de la dirección que representa la máscara (en binario).
         Ejemplo: "110000001010100000000001"'''
-        mask_representation = self.bip
-        return mask_representation[: self.mask]
+        return self.bip[: self.mask]
 
     @property
     def addr_bhost(self) -> str:
         '''Devuelve la parte de la dirección que representa el host (en binario).
         Ejemplo: "00000101"'''
-        host_representation = self.bip
-        return host_representation[self.mask :]
+        return self.bip[self.mask :]
 
     @property
     def has_network_addr(self) -> bool:
         '''Indica si la dirección IP corresponde con la dirección de red.
         En una dirección de red, la parte de host de la IP tiene todos los bits a 0.
         Ejemplo: "192.168.1.0"'''
-        host_representation = self.bip
-        host_part = host_representation[self.mask :]
-        right_host_part = len(host_part) * "0"
-        return host_part == right_host_part
+        host_part = self.bip[self.mask :]
+        return host_part == len(host_part) * "0"
 
     @property
     def has_broadcast_addr(self) -> bool:
         '''Indica si la dirección IP corresponde con la dirección de broadcast.
         En una dirección de broadcast, la parte de host de la IP tiene todos los bits a 1.
         Ejemplo: "192.168.1.255"'''
-        host_representation = self.bip
-        broadcast_part = host_representation[self.mask :]
-        right_broadcast_part = len(broadcast_part) * "1"
-        return broadcast_part == right_broadcast_part
+        broadcast_part = self.bip[self.mask :]
+        return broadcast_part == len(broadcast_part) * "1"
 
     @property
     def nclass(self):
@@ -113,7 +104,7 @@ class Host:
         """Devuelve el número de hosts que pueden haber en la red.
         Para calcular la cantidad de hosts por red, se usa la fórmula 2^n - 2
         donde n corresponde a la cantidad de bits para hosts."""
-        return 2 ** (Host.IPV4_BITS - self.mask) - 2
+        return 2**self.addr_host_size - 2
 
     def ping(self, host: Host) -> bool:
         """Indica si un host puede hacer ping a otro host.
@@ -123,9 +114,7 @@ class Host:
     def __repr__(self):
         '''Devuelve la representación del host en formato.
         Ejemplo: "192.168.1.5/24"'''
-        octets = (str(octet) for octet in self.ip_octets)
-        ip_representation = f"{'.'.join(octets)}/{self.mask}"
-        return ip_representation
+        return f"{self.ip}/{self.mask}"
 
     def __eq__(self, other: Host | object):
         """Indica si dos hosts tienen la misma dirección IP (incluyendo máscara)"""
@@ -147,8 +136,8 @@ class Host:
         """
         if len(bip) > Host.IPV4_BITS:
             raise IPAddressError("Binary address is too long")
-        new_ip = ".".join(f"{int(bip[i:i+8], 2)}" for i in range(0, Host.IPV4_BITS, 8))
-        return Host(new_ip, mask=mask)
+        new_ip = tuple(int(bip[i : i + 8], 2) for i in range(0, Host.IPV4_BITS, 8))
+        return Host(*new_ip, mask=mask)
 
 
 class IPAddressError(Exception):
@@ -187,7 +176,15 @@ class NetworkIter:
         - Hay que dejar fuera el host que representa la red.
         - Hay que dejar fuera el host que representa el broadcast.
         """
-        pass
+        ip = ".".join(str(_oct) for _oct in self.host.ip.split(".")[:-1])
+        for bip in self.host_bip_segments:
+            last_oct = f"0b{''.join(str(b) for b in bip)}"
+            if "0" * 8 == last_oct[2:]:
+                continue
+            if "1" * 8 == last_oct[2:]:
+                raise StopIteration
+            last_oct_int = str(int(last_oct, 2))
+            return Host(f"{ip}.{last_oct_int}", mask=self.host.mask)
 
     @staticmethod
     def comb(values, n):
