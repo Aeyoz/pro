@@ -181,13 +181,24 @@ class NetworkIter:
         #  [1, 1, 1, 1, 1, 1, 1, 1]]
         # ¡Ojo que es un generador!
         self.host_bip_segments = NetworkIter.comb((0, 1), self.host.addr_host_size)
+        self.mask = host.mask
 
     def __next__(self):
         """Genera el siguiente host dentro de la subred en la que se encuentra el host original.
         - Hay que dejar fuera el host que representa la red.
         - Hay que dejar fuera el host que representa el broadcast.
         """
-        pass
+        ip_terms = self.host.ip.split(".")[:-1]
+        for bip in self.host_bip_segments:
+            l_oct = "".join(str(b) for b in bip)
+            if l_oct == 8 * "0":
+                continue
+            if l_oct == 8 * "1":
+                raise StopIteration
+            last_oct = int(l_oct, 2)
+            ip_terms.append(last_oct)
+            new_ip = ".".join(str(octat) for octat in ip_terms)
+            return Host(new_ip, mask=self.mask)
 
     @staticmethod
     def comb(values, n):
@@ -202,3 +213,7 @@ class NetworkIter:
                     yield from comb_helper(items, k + 1)
 
         return comb_helper([None] * n)
+
+#pepe = Host("192.168.1.5", mask=24)
+print(int("0b0101", 2))
+#print(pepe.ip)
