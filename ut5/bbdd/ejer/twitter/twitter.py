@@ -20,10 +20,10 @@ def create_db(db_path: str = DB_PATH) -> None:
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute(
-        "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, username CHAR, password CHAR, bio CHAR)"
+        "CREATE TABLE user (id INTEGER PRIMARY KEY, username CHAR, password CHAR, bio CHAR)"
     )
     cur.execute(
-        "CREATE TABLE IF NOT EXISTS tweet (id INTEGER PRIMARY KEY, content CHAR, user_id INTEGER, retweet_from INTEGER)"
+        "CREATE TABLE tweet (id INTEGER PRIMARY KEY, content CHAR, user_id INTEGER, retweet_from INTEGER)"
     )
     con.commit()
 
@@ -71,10 +71,9 @@ class User:
             raise TwitterError("Tweet has more than 280 chars!")
         if not self.logged:
             raise TwitterError(f"User {self.username} is not logged in!")
-
-    #        new_tweet = Tweet(content, self.id)
-    #        new_tweet.save()
-    #        return new_tweet
+        new_tweet = Tweet(content=content)
+        new_tweet.save(self)
+        return new_tweet
 
     def retweet(self, tweet_id: int) -> Tweet:
         """Crea un retweet con el contenido indicado y lo almacena en la base de datos.
@@ -113,7 +112,7 @@ class User:
     @classmethod
     def from_db_row(cls, row: sqlite3.Row):
         """Crea un objeto de tipo User a partir de una fila de consulta SQL"""
-        id, username, password, bio = row.fetchall
+        id, username, password, bio = row.fetchall()[0]
         return User(username, password, bio, id)
 
 
@@ -157,9 +156,9 @@ class Tweet:
         Además actualiza el atributo "id" del objeto a partir de lo que devuelve la inserción.
         """
         user_id = user.id
-        saved_user = Tweet.cur.execute(
-            "INSERT INTO user (content, user_id, retweet_from) VALUES (?, ?, ?)",
-            (self._content, user_id, self.retweet_from),
+        Tweet.cur.execute(
+            "INSERT INTO tweet (content, user_id) VALUES (?, ?)",
+            (self._content, user_id),
         )
         self.id = Tweet.cur.lastrowid
         Tweet.con.commit()
@@ -167,7 +166,7 @@ class Tweet:
     def __repr__(self):
         """Representa un tweet con el formato:
         <emoji> <content> (id=<id>)"""
-        return f"{TWEET_EMOJI} {self._content} {self.id}"
+        return f"{TWEET_EMOJI} {self._content} (id={self.id})"
 
     @classmethod
     def from_db_row(cls, row: sqlite3.Row) -> Tweet:
@@ -197,15 +196,17 @@ class Twitter:
           * Terminar con una exclamación o un asterisco.
         Si no sigue este formato hay que elevar una excepción de tipo TwitterError
         con el mensaje: Password does not follow security rules!"""
-        # "@?=?\d{2,4}[A-Za-z]{2,4}\*?!?"
-        #        Twitter.cur.execute(
-        #            "INSERT INTO user (username, password, bio) VALUES (?, ?, ?)",
-        #            (username, password, bio),
-        #        )
-        #        new_user = User(username, password, bio)
-        #        new_user.id = Twitter.cur.lastrowid
-        #        return new_user
-        pass
+        valid_passwd_format = r"\b@?=?\d{2,4}[A-Za-z]{2,4}\*?!?\b"
+        passwd = re.search(password, valid_passwd_format)
+        if not isinstance(passwd[0], str):
+            raise TwitterError("Password does not follow security rules!")
+        Twitter.cur.execute(
+            "INSERT INTO user (username, password, bio) VALUES (?, ?, ?)",
+            (username, password, bio),
+        )
+        new_user = User(username, password, bio)
+        new_user.id = User.cur.lastrowid
+        return new_user
 
     def get_user(self, user_id: int) -> User:
         """Devuelve el usuario con el user_id indicado.
