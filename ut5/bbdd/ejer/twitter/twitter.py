@@ -20,10 +20,10 @@ def create_db(db_path: str = DB_PATH) -> None:
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute(
-        "CREATE TABLE user (id INTEGER PRIMARY KEY, username CHAR, password CHAR, bio CHAR)"
+        "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, username CHAR, password CHAR, bio CHAR)"
     )
     cur.execute(
-        "CREATE TABLE tweet (id INTEGER PRIMARY KEY, content CHAR, user_id INTEGER, retweet_from INTEGER)"
+        "CREATE TABLE IF NOT EXISTS tweet (id INTEGER PRIMARY KEY, content CHAR, user_id INTEGER, retweet_from INTEGER)"
     )
     con.commit()
 
@@ -113,7 +113,7 @@ class User:
     @classmethod
     def from_db_row(cls, row: sqlite3.Row):
         """Crea un objeto de tipo User a partir de una fila de consulta SQL"""
-        id, username, password, bio = row.fetchone()
+        id, username, password, bio = row.fetchall
         return User(username, password, bio, id)
 
 
