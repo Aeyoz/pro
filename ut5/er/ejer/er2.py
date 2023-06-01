@@ -5,7 +5,7 @@ Lorem Ipsum ha sido el texto de relleno estándar https://es.wikipedia.org/wiki/
 cuando un impresor (N. del https://aprendepython.es/ T. persona que se dedica a la imprenta) desconocido usó una galería de textos
 y los mezcló de tal manera que logró https://pythex.org/ hacer un libro de textos especimen. No sólo sobrevivió 500 años,
 sino que tambien ingresó como texto de relleno en documentos electrónicos, http://www.cticanarias.com quedando esencialmente igual al original.
-Fue popularizado en los https://mail.google.com/ 60s con la creación de las hojas Letraset, las cuales contenian pasajes de Lorem Ipsum,
+Fue popularizado en los https://mail.google.com/ 60s con la creación de las hojas Letraset, las cuales contenian pasajes de https://daw.hello.pro.org/facil/query.php?a=1&b=2 Lorem Ipsum,
 y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum."""
 
 er = r"\bhttps?://\S*\.\S*"

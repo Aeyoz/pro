@@ -1,8 +1,9 @@
 import re
 
-operation = "4 +++ 4 99"
+operation = "4 + 499"
 
-er = r"\d*\s*[\+\-\*\/]*\s*\d*"
+er = r"^\s*(\d+)\s*([+\-*/])\s*(\d+)\s*$"
+
 
 def get_float(num):
     return re.findall(er, num)

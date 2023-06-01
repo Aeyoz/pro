@@ -23,7 +23,7 @@ text = """
     """
 
 
-er = r"\b[aeiou]\w+|\b[aeiou]\w?"
+er = r"\b[aeiou]\w+"  # |\b[aeiou]\w?"
 
 
 def get_vowel_started_words(text):
