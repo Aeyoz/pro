@@ -4,3 +4,4 @@ __pycache__
 .mypy_cache
 prueba.py
 .pytest_cache
+test_prueba.py
